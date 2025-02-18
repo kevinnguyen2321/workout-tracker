@@ -14,7 +14,7 @@ export default function Home() {
   }
 
   if (!session) {
-    router.push('/login');
+    router.push('/auth/login');
 
     return null; // Prevent rendering the page content before redirect
   }
@@ -22,12 +22,6 @@ export default function Home() {
   return (
     <div className="border-2 border-yellow-100 m-8">
       <p>Welcome, {session.user.email}!</p>
-      <button
-        onClick={() => signOut()}
-        className="mt-4 px-4 py-2 bg-red-500 text-white rounded-md"
-      >
-        Logout
-      </button>
     </div>
   );
 }
