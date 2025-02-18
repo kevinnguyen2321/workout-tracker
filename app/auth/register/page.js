@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation'; // Import useRouter
+import { signIn } from 'next-auth/react';
 
 export default function Signup() {
   const [formData, setFormData] = useState({
@@ -29,7 +30,18 @@ export default function Signup() {
 
       const data = await res.json();
       if (res.ok) {
-        router.push('/'); // Redirect to home page on success
+        // Automatically sign in the user after successful registration
+        const signInResponse = await signIn('credentials', {
+          redirect: false,
+          email: formData.email,
+          password: formData.password,
+        });
+
+        if (signInResponse?.error) {
+          setError(signInResponse.error);
+        } else {
+          router.push('/'); // Redirect to home page on success
+        }
       } else {
         setError(data.error || 'Registration failed');
       }
