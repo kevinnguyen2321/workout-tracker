@@ -14,7 +14,7 @@ export default function Home() {
   }
 
   if (!session) {
-    router.push('/login');
+    router.push('/auth/login');
 
     return null; // Prevent rendering the page content before redirect
   }
