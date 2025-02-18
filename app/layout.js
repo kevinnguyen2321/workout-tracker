@@ -4,6 +4,8 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import '../app/styles/globals.css';
 import { SessionProvider } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
+import Navbar from './components/Navbar'; // Import Navbar
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -17,12 +19,26 @@ const geistMono = Geist_Mono({
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <SessionProvider>{children}</SessionProvider>
-      </body>
-    </html>
+    <SessionProvider>
+      <html lang="en">
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        >
+          <AuthWrapper>{children}</AuthWrapper>
+        </body>
+      </html>
+    </SessionProvider>
+  );
+}
+
+// AuthWrapper component to handle session logic
+function AuthWrapper({ children }) {
+  const { data: session } = useSession();
+
+  return (
+    <>
+      {children}
+      {session && <Navbar />} {/* Show Navbar only if user is logged in */}
+    </>
   );
 }
