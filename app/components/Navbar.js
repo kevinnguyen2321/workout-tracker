@@ -10,6 +10,9 @@ export default function Navbar() {
         <Link href="/dashboard" className="hover:underline">
           My workouts
         </Link>
+        <Link href="/exercises" className="hover:underline">
+          Excercises
+        </Link>
         <button
           onClick={() => signOut()}
           className="bg-red-500 px-3 py-1 rounded hover:bg-red-600"
