@@ -48,3 +48,25 @@ export async function POST(req) {
     );
   }
 }
+
+export async function GET() {
+  try {
+    const session = await getServerSession(authOptions);
+
+    if (!session) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+    const exercises = await prisma.exercise.findMany({
+      include: {
+        category: true, // Fetches category details instead of just the ID
+      },
+    });
+    return NextResponse.json(exercises, { status: 200 });
+  } catch (error) {
+    console.error('Error fetching exercises:', error);
+    return NextResponse.json(
+      { error: 'Internal Server Error' },
+      { status: 500 }
+    );
+  }
+}
