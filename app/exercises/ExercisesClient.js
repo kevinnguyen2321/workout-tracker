@@ -1,10 +1,27 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function ExercisesClient({ categories }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newExercise, setNewExercise] = useState({});
+  const [exercises, setExercises] = useState([]);
+
+  // 🔹 Fetch exercises when component mounts
+  useEffect(() => {
+    const fetchExercises = async () => {
+      try {
+        const response = await fetch('/api/exercises'); // Calls your GET API
+        if (!response.ok) throw new Error('Failed to fetch exercises');
+        const data = await response.json();
+        setExercises(data); // Update state with fetched exercises
+      } catch (error) {
+        console.error('Error fetching exercises:', error);
+      }
+    };
+
+    fetchExercises();
+  }, []); // Empty dependency array -> Runs once on mount
 
   const handleOnChange = (e) => {
     const copyObj = { ...newExercise };
@@ -31,7 +48,13 @@ export default function ExercisesClient({ categories }) {
       });
 
       if (!response.ok) throw new Error('Network response was not ok');
-      console.log('New exercise added:', await response.json());
+
+      const addedExercise = await response.json(); // ✅ Store JSON in a variable
+
+      console.log('New exercise added:', addedExercise); // ✅ Log the stored variable
+
+      // 🔹 Update state instead of relying on router.refresh()
+      setExercises((prevExercises) => [...prevExercises, addedExercise]);
 
       setIsModalOpen(false);
       setNewExercise({});
@@ -41,7 +64,7 @@ export default function ExercisesClient({ categories }) {
   };
 
   return (
-    <div className="w-full flex flex-col items-center justify-center h-screen">
+    <div className="w-full flex flex-col items-center mt-11  h-screen">
       <button
         className="text-4xl border-2 border-black p-2 rounded"
         onClick={() => setIsModalOpen(true)}
@@ -49,6 +72,19 @@ export default function ExercisesClient({ categories }) {
         +
       </button>
       <h1 className="text-3xl font-bold mb-4">Exercises</h1>
+
+      {/* 🔹 Display all fetched exercises */}
+      <ul className="mb-6">
+        {exercises.map((exercise) => (
+          <li key={exercise.id} className="text-xl">
+            {exercise.name} -{' '}
+            {`(${
+              categories.find((c) => c.id === exercise.categoryId)?.name ||
+              'Unknown Category'
+            })`}
+          </li>
+        ))}
+      </ul>
 
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
@@ -78,18 +114,18 @@ export default function ExercisesClient({ categories }) {
               </select>
               <div className="flex justify-end gap-2">
                 <button
-                  type="button"
-                  className="bg-gray-300 px-4 py-2 rounded"
-                  onClick={() => setIsModalOpen(false)}
-                >
-                  Cancel
-                </button>
-                <button
                   type="submit"
                   className="bg-blue-500 text-white px-4 py-2 rounded"
                   onClick={handleSaveBtnClick}
                 >
                   Save
+                </button>
+                <button
+                  type="button"
+                  className="bg-gray-300 px-4 py-2 rounded"
+                  onClick={() => setIsModalOpen(false)}
+                >
+                  Cancel
                 </button>
               </div>
             </form>
