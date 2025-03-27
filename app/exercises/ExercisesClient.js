@@ -1,11 +1,14 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export default function ExercisesClient({ categories }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newExercise, setNewExercise] = useState({});
   const [exercises, setExercises] = useState([]);
+
+  const router = useRouter();
 
   // 🔹 Fetch exercises when component mounts
   useEffect(() => {
@@ -22,6 +25,8 @@ export default function ExercisesClient({ categories }) {
 
     fetchExercises();
   }, []); // Empty dependency array -> Runs once on mount
+
+  //Event handlers//
 
   const handleOnChange = (e) => {
     const copyObj = { ...newExercise };
@@ -63,6 +68,10 @@ export default function ExercisesClient({ categories }) {
     }
   };
 
+  const handleEditBtnClick = (id) => {
+    router.push(`/exercises/${id}`);
+  };
+
   return (
     <div className="w-full flex flex-col items-center mt-11  h-screen">
       <button
@@ -82,6 +91,12 @@ export default function ExercisesClient({ categories }) {
               categories.find((c) => c.id === exercise.categoryId)?.name ||
               'Unknown Category'
             })`}
+            <button
+              onClick={() => handleEditBtnClick(exercise.id)}
+              className="bg-yellow-300"
+            >
+              Edit
+            </button>
           </li>
         ))}
       </ul>
