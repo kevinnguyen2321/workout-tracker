@@ -72,6 +72,30 @@ export default function ExercisesClient({ categories }) {
     router.push(`/exercises/${id}`);
   };
 
+  const handleDeleteBtnClick = async (id) => {
+    const confirmDelete = window.confirm(
+      'Are you sure you want to delete this exercise?'
+    );
+
+    if (confirmDelete) {
+      try {
+        const res = await fetch(`/api/exercises/${id}`, {
+          method: 'DELETE',
+        });
+
+        if (res.ok) {
+          // Optionally, you can refresh the list of exercises here or update the state
+          setExercises(exercises.filter((exercise) => exercise.id !== id));
+        } else {
+          alert('Failed to delete exercise');
+        }
+      } catch (error) {
+        console.error('Error deleting exercise:', error);
+        alert('An error occurred while deleting the exercise.');
+      }
+    }
+  };
+
   return (
     <div className="w-full flex flex-col items-center mt-11  h-screen">
       <button
@@ -96,6 +120,12 @@ export default function ExercisesClient({ categories }) {
               className="bg-yellow-300"
             >
               Edit
+            </button>
+            <button
+              onClick={() => handleDeleteBtnClick(exercise.id)}
+              className="bg-red-300"
+            >
+              Delete
             </button>
           </li>
         ))}
