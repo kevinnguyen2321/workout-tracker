@@ -3,6 +3,40 @@ import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import prisma from '../../../lib/prisma';
 import { NextResponse } from 'next/server';
 
+//GET: Get all workoutSessions for a user //
+
+export async function GET(req) {
+  try {
+    const session = await getServerSession(authOptions);
+    if (!session) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const userId = session.user.id;
+
+    // Fetch workout sessions for the logged-in user, including exercises
+    const workoutSessions = await prisma.workoutSession.findMany({
+      where: { userId },
+      include: {
+        workoutExercises: {
+          include: {
+            exercise: true, // Fetch exercise details
+          },
+        },
+      },
+      orderBy: { date: 'desc' }, // Sort by latest date
+    });
+
+    return NextResponse.json(workoutSessions, { status: 200 });
+  } catch (error) {
+    console.error('Error fetching workout sessions:', error);
+    return NextResponse.json(
+      { error: 'Internal Server Error' },
+      { status: 500 }
+    );
+  }
+}
+
 //POST:Add new workoutSession //
 
 export async function POST(req) {
