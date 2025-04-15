@@ -1,9 +1,20 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 export default function WorkoutSessionsClient({ workouts }) {
   const [workoutList, setWorkoutList] = useState(workouts);
+  const router = useRouter();
+
+  const adjustDateByHours = (dateString, hours = 6) => {
+    const date = new Date(dateString);
+    return new Date(date.getTime() + hours * 60 * 60 * 1000);
+  };
+
+  const handleEditBtnClick = (workoutId) => {
+    router.push(`/workoutSessions/${workoutId}`);
+  };
 
   return (
     <div className="container mx-auto p-6">
@@ -22,7 +33,7 @@ export default function WorkoutSessionsClient({ workouts }) {
                 {workout.name}
               </h2>
               <p className="text-gray-500">
-                {new Date(workout.date).toLocaleDateString()}
+                {adjustDateByHours(workout.date).toLocaleDateString()}
               </p>
 
               <ul className="mt-2">
@@ -33,6 +44,15 @@ export default function WorkoutSessionsClient({ workouts }) {
                   </li>
                 ))}
               </ul>
+              <div>
+                <button
+                  onClick={() => handleEditBtnClick(workout.id)}
+                  className="bg-gray-300 px-4 py-2 rounded"
+                >
+                  Edit
+                </button>
+                <button className="bg-red-300 px-4 py-2 rounded">Delete</button>
+              </div>
             </div>
           ))}
         </div>
