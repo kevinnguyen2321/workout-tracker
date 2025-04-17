@@ -126,3 +126,51 @@ export async function PATCH(req, { params }) {
     );
   }
 }
+
+// DELETE workoutSession by ID
+export async function DELETE(req, { params }) {
+  try {
+    const session = await getServerSession(authOptions);
+    if (!session) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const { id } = params;
+    const parsedId = parseInt(id);
+    // First, ensure the workout belongs to the user
+    const existingWorkout = await prisma.workoutSession.findUnique({
+      where: {
+        id: parsedId,
+      },
+    });
+
+    if (!existingWorkout || existingWorkout.userId !== session.user.id) {
+      return NextResponse.json({ error: 'Workout not found' }, { status: 404 });
+    }
+
+    // Delete associated workoutExercises
+    await prisma.workoutExercise.deleteMany({
+      where: {
+        workoutSessionId: parsedId,
+      },
+    });
+
+    // Delete the workoutSession
+    await prisma.workoutSession.delete({
+      where: {
+        id: parsedId,
+      },
+    });
+
+    return NextResponse.json(
+      { message: 'Workout session deleted successfully' },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error('Error deleting workout session:', error);
+    return NextResponse.json(
+      { error: 'Internal Server Error', details: error.message },
+      { status: 500 }
+    );
+  }
+}
