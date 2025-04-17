@@ -7,11 +7,8 @@ import EditWorkoutForm from './EditWorkoutForm';
 export default function EditWorkoutSessionPage({ params }) {
   const router = useRouter();
 
-  const [workout, setWorkout] = useState({
-    name: '',
-    date: '',
-    workoutExercises: [],
-  });
+  const [workout, setWorkout] = useState({});
+  const [allExercises, setAllExercises] = useState([]);
   const [loading, setLoading] = useState(true);
   const [id, setId] = useState(null); // State to store the workout session ID
 
@@ -34,6 +31,12 @@ export default function EditWorkoutSessionPage({ params }) {
 
         // Set the ID after fetching
         setId(parseInt(workoutSessionId, 10));
+
+        // Fetch all exercises
+        const exercisesRes = await fetch('/api/exercises');
+        if (!exercisesRes.ok) throw new Error('Failed to fetch exercises');
+        const exercisesList = await exercisesRes.json();
+        setAllExercises(exercisesList);
       } catch (error) {
         console.error(error);
       } finally {
@@ -66,7 +69,11 @@ export default function EditWorkoutSessionPage({ params }) {
   return (
     <div className="max-w-lg mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
       <h1 className="text-2xl font-bold mb-4">Edit Workout Session</h1>
-      <EditWorkoutForm workout={workout} onSubmit={handleSubmit} />
+      <EditWorkoutForm
+        workout={workout}
+        onSubmit={handleSubmit}
+        allExercises={allExercises}
+      />
     </div>
   );
 }
