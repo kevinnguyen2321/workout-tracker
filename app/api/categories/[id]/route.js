@@ -40,3 +40,45 @@ export async function PUT(req, { params }) {
     );
   }
 }
+
+//DELETE category
+
+export async function DELETE(req, { params }) {
+  try {
+    const session = await getServerSession(authOptions);
+
+    if (!session) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const { id } = params;
+    const parsedId = parseInt(id);
+
+    // Optional: Check if category exists before deleting
+    const existingCategory = await prisma.category.findUnique({
+      where: { id: parsedId },
+    });
+
+    if (!existingCategory) {
+      return NextResponse.json(
+        { error: 'Category not found' },
+        { status: 404 }
+      );
+    }
+
+    await prisma.category.delete({
+      where: { id: parsedId },
+    });
+
+    return NextResponse.json(
+      { message: 'Category deleted successfully' },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error('Error deleting category:', error);
+    return NextResponse.json(
+      { error: 'Internal Server Error', details: error.message },
+      { status: 500 }
+    );
+  }
+}
