@@ -10,6 +10,9 @@ export default function Navbar() {
         <Link href="/" className="hover:underline">
           Home
         </Link>
+        <Link href="/personalBest" className="hover:underline">
+          Achievements
+        </Link>
         <Link href="/workoutSessions" className="hover:underline">
           My workouts
         </Link>
