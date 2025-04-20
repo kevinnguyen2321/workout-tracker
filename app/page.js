@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { signOut } from 'next-auth/react';
+import Image from 'next/image';
 
 export default function Home() {
   const { data: session, status } = useSession();
@@ -99,23 +99,21 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center p-6">
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">
+      <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-6 text-center">
         Add New Workout Session
       </h1>
 
       {/* Add Workout Button */}
-      <button
-        className="bg-blue-600 text-white text-lg font-semibold px-6 py-3 rounded-full shadow-md hover:bg-blue-700 transition-all"
-        onClick={() => setShowModal(true)}
-      >
-        +
+      <button onClick={() => setShowModal(true)}>
+        <Image src="/plus.png" alt="Add" width={40} height={40} />
       </button>
 
       {/* Modal */}
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           {/* Modal Container */}
-          <div className="bg-white rounded-lg shadow-lg p-6 w-96 max-h-[80vh] overflow-y-auto">
+          {/* <div className="bg-white rounded-lg shadow-lg p-6 w-96 max-h-[80vh] overflow-y-auto"> */}
+          <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6 w-[90%] max-w-md max-h-[90vh] overflow-y-auto transform transition-all duration-300 scale-100">
             <h2 className="text-xl font-semibold mb-4">
               Add New Workout Session
             </h2>
