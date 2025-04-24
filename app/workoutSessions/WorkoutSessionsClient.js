@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
@@ -44,7 +45,9 @@ export default function WorkoutSessionsClient({ workouts }) {
 
   return (
     <div className="container mx-auto p-6">
-      <h1 className="text-2xl font-bold text-gray-800 mb-4">My Workouts</h1>
+      <h1 className="text-2xl font-bold text-gray-800 mb-4 text-center">
+        My Workouts
+      </h1>
 
       {workoutList.length === 0 ? (
         <p className="text-gray-500">No workouts found. Start adding some!</p>
@@ -70,18 +73,23 @@ export default function WorkoutSessionsClient({ workouts }) {
                   </li>
                 ))}
               </ul>
-              <div>
+              <div className="flex gap-3 items-center mt-4">
                 <button
                   onClick={() => handleEditBtnClick(workout.id)}
-                  className="bg-gray-300 px-4 py-2 rounded"
+                  className="bg-transparent p-0 m-0 hover:opacity-80"
                 >
-                  Edit
+                  <Image src="/edit.png" alt="Edit" width={30} height={30} />
                 </button>
                 <button
-                  className="bg-red-300 px-4 py-2 rounded"
+                  className="bg-transparent p-0 m-0 hover:opacity-80"
                   onClick={() => handleDeleteBtnClick(workout.id)}
                 >
-                  Delete
+                  <Image
+                    src="/delete.png"
+                    alt="Delete"
+                    width={30}
+                    height={30}
+                  />
                 </button>
               </div>
             </div>

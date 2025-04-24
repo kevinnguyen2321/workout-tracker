@@ -111,19 +111,19 @@ export default function ExerciseEditPage({ params }) {
         </div>
 
         {/* Buttons */}
-        <div className="flex justify-between">
-          <button
-            type="submit"
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-          >
-            Save Changes
-          </button>
+        <div className="flex justify-end gap-4 mt-4">
           <button
             type="button"
             className="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400"
             onClick={() => router.push('/exercises')}
           >
             Cancel
+          </button>
+          <button
+            type="submit"
+            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          >
+            Save
           </button>
         </div>
       </form>

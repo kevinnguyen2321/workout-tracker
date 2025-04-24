@@ -6,6 +6,7 @@ import '../app/styles/globals.css';
 import { SessionProvider } from 'next-auth/react';
 import { useSession } from 'next-auth/react';
 import Navbar from './components/Navbar'; // Import Navbar
+import Image from 'next/image';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -37,6 +38,10 @@ function AuthWrapper({ children }) {
 
   return (
     <>
+      {/* Full-width black header */}
+      <div className="bg-black w-full p-4 flex justify-center items-center">
+        <Image src="/dumbbell.png" alt="Dumbbell" width={40} height={40} />
+      </div>
       {children}
       {session && <Navbar />} {/* Show Navbar only if user is logged in */}
     </>

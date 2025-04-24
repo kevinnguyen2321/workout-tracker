@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 export default function PersonalBestPage() {
@@ -40,7 +41,7 @@ export default function PersonalBestPage() {
 
   return (
     <div className="p-6 max-w-xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">My Personal Best</h1>
+      <h1 className="text-2xl font-bold mb-4 text-center">My Personal Best</h1>
 
       <label htmlFor="exercise" className="block mb-2 font-medium">
         Select an exercise:
@@ -63,11 +64,15 @@ export default function PersonalBestPage() {
 
       {!loading && personalBest?.exercise && personalBest?.workoutSession ? (
         <div className="border rounded-lg p-4 shadow-md bg-white">
-          <p>
-            <strong>Exercise:</strong> {personalBest.exercise.name}
-          </p>
-          <p>
-            <strong>Weight:</strong> {personalBest.weight} lbs
+          <p className="flex items-center">
+            <strong> PR Weight:</strong> {personalBest.weight} lbs{' '}
+            <Image
+              className="ml-1"
+              src="/trophy.png"
+              alt="Dumbbell"
+              width={22}
+              height={22}
+            />
           </p>
           <p>
             <strong>Reps:</strong> {personalBest.reps}

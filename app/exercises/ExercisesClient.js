@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -97,36 +98,42 @@ export default function ExercisesClient({ categories }) {
   };
 
   return (
-    <div className="w-full flex flex-col items-center mt-11  h-screen">
-      <button
-        className="text-4xl border-2 border-black p-2 rounded"
-        onClick={() => setIsModalOpen(true)}
-      >
-        +
+    // <div className="w-full flex flex-col items-center mt-11  h-screen">
+    <div className="w-full max-w-3xl mx-auto px-4 py-6 flex flex-col items-center mt-11 min-h-screen">
+      <button className="mb-5" onClick={() => setIsModalOpen(true)}>
+        <Image src="/plus.png" alt="Add" width={40} height={40} />
       </button>
       <h1 className="text-3xl font-bold mb-4">Exercises</h1>
 
       {/* 🔹 Display all fetched exercises */}
-      <ul className="mb-6">
+      {/* <ul className="mb-6"> */}
+      <ul className="w-full space-y-4 mb-8">
         {exercises.map((exercise) => (
-          <li key={exercise.id} className="text-xl">
-            {exercise.name} -{' '}
-            {`(${
-              categories.find((c) => c.id === exercise.categoryId)?.name ||
-              'Unknown Category'
-            })`}
-            <button
-              onClick={() => handleEditBtnClick(exercise.id)}
-              className="bg-yellow-300"
-            >
-              Edit
-            </button>
-            <button
-              onClick={() => handleDeleteBtnClick(exercise.id)}
-              className="bg-red-300"
-            >
-              Delete
-            </button>
+          <li
+            key={exercise.id}
+            className="flex flex-col sm:flex-row sm:items-center justify-between text-lg border-b pb-2"
+          >
+            <div className="mb-2 sm:mb-0">
+              {exercise.name} -{' '}
+              {`(${
+                categories.find((c) => c.id === exercise.categoryId)?.name ||
+                'Unknown Category'
+              })`}
+            </div>
+            <div className="flex space-x-2">
+              <button
+                className="ml-3"
+                onClick={() => handleEditBtnClick(exercise.id)}
+              >
+                <Image src="/edit.png" alt="Edit" width={25} height={25} />
+              </button>
+              <button
+                className="ml-1"
+                onClick={() => handleDeleteBtnClick(exercise.id)}
+              >
+                <Image src="/delete.png" alt="Delete" width={25} height={25} />
+              </button>
+            </div>
           </li>
         ))}
       </ul>
@@ -159,18 +166,18 @@ export default function ExercisesClient({ categories }) {
               </select>
               <div className="flex justify-end gap-2">
                 <button
-                  type="submit"
-                  className="bg-blue-500 text-white px-4 py-2 rounded"
-                  onClick={handleSaveBtnClick}
-                >
-                  Save
-                </button>
-                <button
                   type="button"
                   className="bg-gray-300 px-4 py-2 rounded"
                   onClick={() => setIsModalOpen(false)}
                 >
                   Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="bg-blue-500 text-white px-4 py-2 rounded"
+                  onClick={handleSaveBtnClick}
+                >
+                  Add
                 </button>
               </div>
             </form>
