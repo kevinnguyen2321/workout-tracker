@@ -7,6 +7,7 @@ import { SessionProvider } from 'next-auth/react';
 import { useSession } from 'next-auth/react';
 import Navbar from './components/Navbar'; // Import Navbar
 import Image from 'next/image';
+import Head from 'next/head';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -22,6 +23,10 @@ export default function RootLayout({ children }) {
   return (
     <SessionProvider>
       <html lang="en">
+        <Head>
+          <link rel="manifest" href="/manifest.json" />
+          <meta name="theme-color" content="#0f172a" />
+        </Head>
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
