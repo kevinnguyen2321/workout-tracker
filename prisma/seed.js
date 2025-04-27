@@ -4,18 +4,6 @@ const bcrypt = require('bcryptjs');
 const prisma = new PrismaClient();
 
 async function main() {
-  const hashedPassword = await bcrypt.hash('password123', 10);
-
-  await prisma.user.create({
-    data: {
-      email: 'test@example.com',
-      password: hashedPassword,
-      name: 'Test User',
-    },
-  });
-
-  console.log('Database seeded!');
-
   // Seed categories
   const categories = await prisma.category.createMany({
     data: [
