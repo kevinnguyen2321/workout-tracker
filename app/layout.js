@@ -7,7 +7,6 @@ import { SessionProvider } from 'next-auth/react';
 import { useSession } from 'next-auth/react';
 import Navbar from './components/Navbar'; // Import Navbar
 import Image from 'next/image';
-import Head from 'next/head';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -23,10 +22,12 @@ export default function RootLayout({ children }) {
   return (
     <SessionProvider>
       <html lang="en">
-        <Head>
+        <head>
           <link rel="manifest" href="/manifest.json" />
+          <link rel="apple-touch-icon" href="/app_icon.png" />
           <meta name="theme-color" content="#0f172a" />
-        </Head>
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+        </head>
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
