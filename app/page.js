@@ -132,11 +132,16 @@ export default function Home() {
                 />
 
                 {/* Workout Date Input */}
+                <label htmlFor="workoutDate" className="text-gray-600">
+                  Date
+                </label>
                 <input
+                  id="workoutDate"
                   type="date"
-                  className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none"
                   value={workoutDate}
                   onChange={(e) => setWorkoutDate(e.target.value)}
+                  placeholder="Select a date"
                 />
 
                 {/* Exercises Section */}
