@@ -7,7 +7,7 @@ import { Home, Trophy, Dumbbell, List, LogOut } from 'lucide-react';
 export default function Navbar() {
   return (
     <>
-      <nav className="fixed bottom-0 left-0 w-full bg-black text-white py-2 border-t border-gray-700 z-50">
+      <nav className="fixed bottom-2 left-0 w-[96%] mx-auto bg-black text-white py-3 border-t border-gray-700 z-50 rounded-xl shadow-lg">
         <div className="flex justify-around items-center text-xs">
           <Link
             href="/"
