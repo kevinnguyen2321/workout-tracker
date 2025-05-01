@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🏋️‍♂️ Workout Tracker
 
-## Getting Started
+A full-stack Progressive Web App (PWA) to log and manage your workout sessions. Built with modern web technologies for performance, scalability, and ease of use.
 
-First, run the development server:
+🔗 **Live Site**: [https://workout-tracker-azure.vercel.app/auth/login](https://workout-tracker-azure.vercel.app/auth/login)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- 🔐 Secure login with **NextAuth.js**
+- 🗓️ Track workouts, exercises, sets, reps, and weight
+- 📲 **Installable PWA** – works offline and feels like a native app
+- ⚡ Lightning-fast performance with **Next.js**
+- 🎨 Sleek and responsive UI powered by **Tailwind CSS**
+- ☁️ Deployed on **Vercel**, with database hosted by **Neon**
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 📸 Screenshots
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+<p align="center">
+  <img src="public/view_one.PNG" alt="Home Page" width="300" />
+  &nbsp;
+  <img src="public/view_two.PNG" alt="Workout Session" width="300" />
+  &nbsp;
+  <img src="public/view_three.PNG" alt="Edit Session" width="300" />
+</p>
 
-## Learn More
+## 🛠️ Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Tech         | Purpose                             |
+| ------------ | ----------------------------------- |
+| Next.js      | Full-stack React framework          |
+| Prisma       | ORM for database management         |
+| NextAuth     | Authentication and session handling |
+| Tailwind CSS | Utility-first styling               |
+| PWA          | Offline support and installability  |
+| Neon         | Serverless PostgreSQL database      |
+| Vercel       | Hosting and serverless deployment   |
